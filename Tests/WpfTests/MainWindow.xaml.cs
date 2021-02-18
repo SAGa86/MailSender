@@ -25,19 +25,21 @@ namespace WpfTests
         public MainWindow()
         {
             InitializeComponent();
+            //MainWindow.MaxHeightProperty = 
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var from = new MailAddress("slay_ag@mail.ru", "Алексей Г.");
-            var to = new MailAddress("saga281286@yandex.ru", "Алексей Г.");
+            var from = new MailAddress(LoginEdit.Text);
+            var to = new MailAddress(AddressEdit.Text);
 
             var message = new MailMessage(from, to);
-            message.Subject = "Заголовок";
-            message.Body = "Текст письма";
+            message.Subject = ThemeName.Text;
+            message.Body = TextMessage.Text;
 
-            var client = new SmtpClient("smtp.mail.ru", 25);
+            var client = new SmtpClient(ServerEdit.Text, Convert.ToInt32(PortEdit.Text));
             client.EnableSsl = true;
+            client.Timeout = 3000;
 
             client.Credentials = new NetworkCredential
             {
@@ -60,6 +62,11 @@ namespace WpfTests
             {
                 MessageBox.Show("Ошибка адреса сервера", "Ошибка отправки почты", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
