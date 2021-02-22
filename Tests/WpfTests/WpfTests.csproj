@@ -6,4 +6,34 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Media\clock-line.png" />
+    <None Remove="Media\daily-schedule.png" />
+    <None Remove="Media\edit-document.png" />
+    <None Remove="Media\remove-file.png" />
+    <None Remove="Media\text-document-add.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Media\clock-line.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\daily-schedule.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\edit-document.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\remove-file.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\text-document-add.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FontAwesome5" Version="2.1.0" />
+  </ItemGroup>
+
 </Project>
