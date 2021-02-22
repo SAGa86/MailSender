@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MailSender.lib.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace WpfTests.Data
                 Name = $"Сервер - {i}",
                 Address = $"smtp.server{i}.com",
                 Login = $"Login - {i}",
-                Password = $"Password - {i}",
+                Password = TextEncoder.Encode($"Password-{i}", 7),
                 UseSSL = i % 2 == 0,
             })
             .ToList();
