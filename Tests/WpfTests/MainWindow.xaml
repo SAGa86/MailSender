@@ -5,7 +5,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTests"
+        xmlns:data="clr-namespace:WpfTests.Data"
+        xmlns:m="clr-namespace:WpfTests.Models"
         mc:Ignorable="d"
+        
         Title="MainWindow" Height="450" Width="800">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -30,10 +33,13 @@
                 <DockPanel>
                     <ToolBarTray DockPanel.Dock="Top">
                         <ToolBar Header="Сервера">
-                            <ComboBox MinWidth="120" MaxWidth="200" SelectedIndex="0" Margin="27,0,0,0">
-                                <ComboBoxItem>smtp.yandex.ru:25</ComboBoxItem>
+                            <ComboBox MinWidth="120" MaxWidth="200" SelectedIndex="0" Margin="27,0,0,0" 
+                                      ItemsSource="{x:Static data:TestData.Servers}"
+                                      DisplayMemberPath="Address">
+                                <!--<ComboBoxItem>smtp.yandex.ru:25</ComboBoxItem>
                                 <ComboBoxItem>smtp.mail.ru:25</ComboBoxItem>
-                                <ComboBoxItem>smtp.gmail.com:25</ComboBoxItem>
+                                <ComboBoxItem>smtp.gmail.com:25</ComboBoxItem>-->
+                                
                             </ComboBox>
                             <Button ToolTip="Добавить">
                                 <StackPanel Orientation="Horizontal">
@@ -48,10 +54,19 @@
                             
                         </ToolBar>
                         <ToolBar Header="Отправители" Band="1" BandIndex="0">
-                            <ComboBox MinWidth="120" MaxWidth="200" SelectedIndex="0">
-                                <ComboBoxItem>Ivanov@ya.ru</ComboBoxItem>
+                            <ComboBox MinWidth="120" MaxWidth="200" SelectedIndex="0"
+                                      ItemsSource="{x:Static data:TestData.Senders}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate DataType ="m:Sender" >
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}" />                                            
+                                            <TextBlock Text="{Binding Address}" Margin="5,0,0,0" Opacity="0.5" FontSize="10" TextAlignment="Center" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                                <!--<ComboBoxItem>Ivanov@ya.ru</ComboBoxItem>
                                 <ComboBoxItem>Petrov@mail.ru</ComboBoxItem>
-                                <ComboBoxItem>Sidorov@gmail.com</ComboBoxItem>
+                                <ComboBoxItem>Sidorov@gmail.com</ComboBoxItem>-->
                             </ComboBox>
                             <Button ToolTip="Добавить">
                                 <StackPanel Orientation="Horizontal">
@@ -81,11 +96,16 @@
                         </ToolBar>                        
                     </ToolBarTray>
                     <GroupBox Header="Список получателей" Margin="3">
-                        <DataGrid AutoGenerateColumns="False">
+                        <DataGrid AutoGenerateColumns="False" 
+                                  ItemsSource="{x:Static data:TestData.Recipients}"
+                                  IsReadOnly="True"
+                                  GridLinesVisibility="Vertical"
+                                  VerticalGridLinesBrush="DarkGray"
+                                  AlternatingRowBackground="Beige">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" MinWidth="30" />
-                                <DataGridTextColumn Header="Имя" Width="*"/>
-                                <DataGridTextColumn Header="Адрес" MinWidth="120" />
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="Адрес" Binding="{Binding Address}" MinWidth="120" />
                             </DataGrid.Columns>
                             
                         </DataGrid>
