@@ -251,7 +251,31 @@
                     <GridSplitter Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="3" Background="Transparent"></GridSplitter>
                 </Grid>
             </TabItem>
-            <TabItem Header="Письма"/>
+            <TabItem Header="Письма">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Grid.Column="0" Header="Письма">
+                        <ListBox MinWidth="120" ItemsSource="{x:Static data:TestData.Messages}"
+                                 DisplayMemberPath="Body"
+                                 Name="MessagesList"/>
+                            
+    
+                    </GroupBox>
+                    <GroupBox Grid.Column="1" Header="Редактор">
+                        <DockPanel DataContext="{Binding SelectedItem, ElementName=MessagesList}">
+                            <GroupBox DockPanel.Dock="Top" Header="Заголовок">
+                                <TextBox Text="{Binding Title}"/>
+                            </GroupBox>
+                            <GroupBox Header="Текст письма">
+                                <TextBox AcceptsReturn="True" AcceptsTab="True" Text="{Binding Body}"/>
+                            </GroupBox>
+                        </DockPanel>    
+                    </GroupBox>
+                </Grid>
+            </TabItem>
             <TabItem Header="Статистика"/>
         </TabControl>
 
