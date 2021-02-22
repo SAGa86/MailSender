@@ -30,38 +30,38 @@ namespace WpfTests
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var from = new MailAddress(LoginEdit.Text);
-            var to = new MailAddress(AddressEdit.Text);
+            //var from = new MailAddress(LoginEdit.Text);
+            //var to = new MailAddress(AddressEdit.Text);
 
-            var message = new MailMessage(from, to);
-            message.Subject = ThemeName.Text;
-            message.Body = TextMessage.Text;
+            //var message = new MailMessage(from, to);
+            //message.Subject = ThemeName.Text;
+            //message.Body = TextMessage.Text;
 
-            var client = new SmtpClient(ServerEdit.Text, Convert.ToInt32(PortEdit.Text));
-            client.EnableSsl = true;
-            client.Timeout = 3000;
+            //var client = new SmtpClient(ServerEdit.Text, Convert.ToInt32(PortEdit.Text));
+            //client.EnableSsl = true;
+            //client.Timeout = 3000;
 
-            client.Credentials = new NetworkCredential
-            {
-                UserName = LoginEdit.Text,
-                SecurePassword = PasswordEdit.SecurePassword
-            };
+            //client.Credentials = new NetworkCredential
+            //{
+            //    UserName = LoginEdit.Text,
+            //    SecurePassword = PasswordEdit.SecurePassword
+            //};
 
-            try
-            {
-                client.Send(message);
+            //try
+            //{
+            //    client.Send(message);
 
-                MessageBox.Show("Почта успешно отправлена!", "Отправка почты", MessageBoxButton.OK, MessageBoxImage.Information);
+            //    MessageBox.Show("Почта успешно отправлена!", "Отправка почты", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            }
-            catch (SmtpException)
-            {
-                MessageBox.Show("Ошибка авторизации", "Ошибка отправки почты", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            catch (TimeoutException)
-            {
-                MessageBox.Show("Ошибка адреса сервера", "Ошибка отправки почты", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            //}
+            //catch (SmtpException)
+            //{
+            //    MessageBox.Show("Ошибка авторизации", "Ошибка отправки почты", MessageBoxButton.OK, MessageBoxImage.Warning);
+            //}
+            //catch (TimeoutException)
+            //{
+            //    MessageBox.Show("Ошибка адреса сервера", "Ошибка отправки почты", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
