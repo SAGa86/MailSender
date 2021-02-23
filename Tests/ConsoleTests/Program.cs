@@ -9,7 +9,7 @@ namespace ConsoleTests
         static void Main(string[] args)
         {
             // отправитель - устанавливаем адрес и отображаемое в письме имя
-            var from = new MailAddress("slay_ag@mail.ru", "Alex");
+            var from = new MailAddress("slay_ag@mail.ru");
             // кому отправляем
             var to = new MailAddress("saga281286@yandex.ru");
             // создаем объект сообщения
@@ -27,7 +27,7 @@ namespace ConsoleTests
             client.Credentials = new NetworkCredential
             {
                 UserName = "slay_ag@mail.ru",
-                Password = "%%%"
+                Password = "Bastard_saints96"
             };
             
             client.Send(m);

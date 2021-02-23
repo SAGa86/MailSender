@@ -40,7 +40,7 @@ namespace WpfTests.Data
                  //Port = 465,
                  UseSSL = true,
                  Login = "slay_ag@mail.ru",
-                 Password = "PassWord",
+                 Password = "Bastard_saints96",
              },
          };
 

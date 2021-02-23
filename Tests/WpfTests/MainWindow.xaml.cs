@@ -29,44 +29,9 @@ namespace WpfTests
         public MainWindow()
         {
             InitializeComponent();
-            //MainWindow.MaxHeightProperty = 
+             
         }
-
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-            //var from = new MailAddress(LoginEdit.Text);
-            //var to = new MailAddress(AddressEdit.Text);
-
-            //var message = new MailMessage(from, to);
-            //message.Subject = ThemeName.Text;
-            //message.Body = TextMessage.Text;
-
-            //var client = new SmtpClient(ServerEdit.Text, Convert.ToInt32(PortEdit.Text));
-            //client.EnableSsl = true;
-            //client.Timeout = 3000;
-
-            //client.Credentials = new NetworkCredential
-            //{
-            //    UserName = LoginEdit.Text,
-            //    SecurePassword = PasswordEdit.SecurePassword
-            //};
-
-            //try
-            //{
-            //    client.Send(message);
-
-            //    MessageBox.Show("Почта успешно отправлена!", "Отправка почты", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            //}
-            //catch (SmtpException)
-            //{
-            //    MessageBox.Show("Ошибка авторизации", "Ошибка отправки почты", MessageBoxButton.OK, MessageBoxImage.Warning);
-            //}
-            //catch (TimeoutException)
-            //{
-            //    MessageBox.Show("Ошибка адреса сервера", "Ошибка отправки почты", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
-        //}
+        
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
@@ -126,6 +91,7 @@ namespace WpfTests
             server.Password = password;
             ServersList.ItemsSource = null;
             ServersList.ItemsSource = TestData.Servers;
+            ServersList.SelectedItem = server;
         }
 
         private void OnDeleteServerButtonClick(object Sender, RoutedEventArgs E)
@@ -136,47 +102,9 @@ namespace WpfTests
             ServersList.ItemsSource = TestData.Servers;
             ServersList.SelectedItem = TestData.Servers.FirstOrDefault();
         }
-
-
-        private void OnSendNowButtonClick(object sender, RoutedEventArgs e)
-        {
-            /*// Извлекаем исходные параметры по возможности
-            if (!(SendersList.SelectedItem is Sender Sender)) return;
-            if (!(RecipientsList.SelectedItem is Recipient Recipient)) return;
-            if (!(ServersList.SelectedItem is Server Server)) return;
-            if (!(MessagesList.SelectedItem is Message Message)) return;
-            // Если одни из параметров невозможно получить, то выходим
-            // Создаём объект-рассыльщик и заполняем параметры сервера
-            var mail_sender = new (
-            Sender.Address, Recipient.Address, Server.UseSSL,
-            Server.Login, Server.Password);
-            // При отправке почты может возникнуть проблема. Ставим перехват исключения.
-            try
-            {
-                // Запускаем таймер
-                var timer = Stopwatch.StartNew();
-                // И запускаем процесс отправки почты
-                mail_sender.Send(
-                Sender.Address, Recipient.Address,
-                Message.Title, Message.Body);
-                timer.Stop(); // По завершении останавливаем таймер
-                              // Если почта успешно отправлена, то отображаем диалоговое окно
-                MessageBox.Show(
-                $"Почта успешно отправлена за {timer.Elapsed.TotalSeconds:0.##}c",
-                "Отправка почты",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
-            }
-            // Если случилась ошибка, то перехватываем исключение
-                catch (SmtpException) // Перехватывает строго нужное нам исключение!
-                {
-                    MessageBox.Show(
-                    "Ошибка при отправке почты",
-                    "Отправка почты",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                }*/
-            }
+          
+       
+                      
         private void OnAddSenderButtonClick(object Sender, RoutedEventArgs E)
         {
             if (!SenderEditDialog.Create(
@@ -227,5 +155,42 @@ namespace WpfTests
             SendersList.SelectedItem = TestData.Senders.FirstOrDefault();
         }
 
+        private void OnSendNowButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!(SendersList.SelectedItem is Sender Sender)) return;
+            if (!(RecipientsList.SelectedItem is Recipient Recipient)) return;
+            if (!(ServersList.SelectedItem is Server Server)) return;
+            if (!(MessagesList.SelectedItem is Message Message)) return;
+            // Если одни из параметров невозможно получить, то выходим
+            // Создаём объект-рассыльщик и заполняем параметры сервера
+            var mail_sender = new SmtpSender(Server.Address, Server.Port, Server.UseSSL, Server.Login, Server.Password);
+            // При отправке почты может возникнуть проблема. Ставим перехват исключения.
+            try
+            {
+                // Запускаем таймер
+                var timer = Stopwatch.StartNew();
+                // И запускаем процесс отправки почты
+                mail_sender.Send(
+                Sender.Address, Recipient.Address,
+                Message.Title, Message.Body);
+                timer.Stop(); // По завершении останавливаем таймер
+                              // Если почта успешно отправлена, то отображаем диалоговое окно
+                MessageBox.Show(
+                $"Почта успешно отправлена за {timer.Elapsed.TotalSeconds:0.##}c",
+                "Отправка почты",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            }
+            // Если случилась ошибка, то перехватываем исключение
+            catch (SmtpException) // Перехватывает строго нужное нам исключение!
+            {
+                MessageBox.Show(
+                "Ошибка при отправке почты",
+                "Отправка почты",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+            }
+
+        }
     }
 }
