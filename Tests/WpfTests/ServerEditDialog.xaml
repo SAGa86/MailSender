@@ -45,7 +45,7 @@
             <TextBox Name="ServerName" x:FieldModifier="private"/>
             
         </GroupBox>
-        <!-- Рамка здесь используется как контейнер для ориантации в макете -->
+        <!-- Рамка здесь используется как контейнер для ориантации в макете!!! -->
         <Border DockPanel.Dock="Top">
             <DockPanel>
                 <GroupBox Header="SSL" DockPanel.Dock="Right">
