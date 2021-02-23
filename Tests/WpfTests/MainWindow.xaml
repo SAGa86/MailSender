@@ -33,28 +33,35 @@
                 <DockPanel>
                     <ToolBarTray DockPanel.Dock="Top">
                         <ToolBar Header="Сервера">
-                            <ComboBox MinWidth="120" MaxWidth="200" SelectedIndex="0" Margin="27,0,0,0" 
-                                      ItemsSource="{x:Static data:TestData.Servers}"
-                                      DisplayMemberPath="Address">
-                                <!--<ComboBoxItem>smtp.yandex.ru:25</ComboBoxItem>
-                                <ComboBoxItem>smtp.mail.ru:25</ComboBoxItem>
-                                <ComboBoxItem>smtp.gmail.com:25</ComboBoxItem>-->
-                                
+                            <ComboBox Name="ServersList"  MinWidth="120" MaxWidth="200" SelectedIndex="0" Margin="27,0,0,0" 
+                                      ItemsSource="{x:Static data:TestData.Servers}">                            
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate DataType ="m:Server" >
+                                        <StackPanel Orientation="Horizontal">                                         
+                                            
+                                            <TextBlock Text="{Binding Name}" />
+                                            <TextBlock Text="{Binding Address}" Margin="5,0,0,0" Opacity="0.5" FontSize="10" TextAlignment="Center" />
+                                            <TextBlock Text=":" Margin="0,0,0,0" Opacity="0.5" FontSize="10" TextAlignment="Center"  />
+                                            <TextBlock Text="{Binding Port}" Margin="0,0,0,0" Opacity="0.5" FontSize="10" TextAlignment="Center"  />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>                     
+                               
                             </ComboBox>
-                            <Button ToolTip="Добавить">
+                            <Button x:Name="OnAddServerButton"  ToolTip="Добавить" Click="OnAddServerButtonClick">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:ImageAwesome Icon="Regular_PlusSquare" Height="12" Margin="0,0,5,0" Foreground="DarkBlue" />
                                     <TextBlock Text="Добавить" TextAlignment="Center"/>
                                 </StackPanel>                                
                             </Button>
-                            
-                            <Button ToolTip="Редактировать" fa:Awesome.Content="Regular_Edit" Foreground="OrangeRed" />
 
-                            <Button ToolTip="Удалить" fa:Awesome.Content="Regular_TrashAlt" Foreground="DarkRed"/>
+                            <Button x:Name="OnEditServerButton"  ToolTip="Редактировать" fa:Awesome.Content="Regular_Edit" Foreground="OrangeRed" Click="OnEditServerButtonClick" />
+
+                            <Button x:Name="OnDeleteServerButton" ToolTip="Удалить" fa:Awesome.Content="Regular_TrashAlt" Foreground="DarkRed" Click="OnDeleteServerButtonClick"/>
                             
                         </ToolBar>
                         <ToolBar Header="Отправители" Band="1" BandIndex="0">
-                            <ComboBox MinWidth="120" MaxWidth="200" SelectedIndex="0"
+                            <ComboBox Name="SendersList" MinWidth="120" MaxWidth="200" SelectedIndex="0"
                                       ItemsSource="{x:Static data:TestData.Senders}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate DataType ="m:Sender" >
@@ -68,15 +75,15 @@
                                 <ComboBoxItem>Petrov@mail.ru</ComboBoxItem>
                                 <ComboBoxItem>Sidorov@gmail.com</ComboBoxItem>-->
                             </ComboBox>
-                            <Button ToolTip="Добавить">
+                            <Button x:Name="OnAddRecipientButton" ToolTip="Добавить" Click="OnAddRecipientButtonClick">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:ImageAwesome Icon="Regular_PlusSquare" Height="12" Margin="0,0,5,0" Foreground="DarkBlue"/>
                                     <TextBlock Text="Добавить" TextAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                            <Button ToolTip="Редактировать" fa:Awesome.Content="Regular_Edit" Foreground="DarkOrange" />
-                            
-                            <Button ToolTip="Удалить" fa:Awesome.Content="Regular_TrashAlt" Foreground="DarkRed"/>
+                            <Button x:Name="OnEditRecipientButton" ToolTip="Редактировать" fa:Awesome.Content="Regular_Edit" Foreground="DarkOrange" />
+
+                            <Button x:Name="OnDeleteRecipientButton" ToolTip="Удалить" fa:Awesome.Content="Regular_TrashAlt" Foreground="DarkRed"/>
                             
                         </ToolBar>
                         <ToolBar>
@@ -96,7 +103,9 @@
                         </ToolBar>                        
                     </ToolBarTray>
                     <GroupBox Header="Список получателей" Margin="3">
-                        <DataGrid AutoGenerateColumns="False" 
+                        <DataGrid 
+                                  Name="RecipientsList"
+                                  AutoGenerateColumns="False" 
                                   ItemsSource="{x:Static data:TestData.Recipients}"
                                   IsReadOnly="True"
                                   GridLinesVisibility="Vertical"
@@ -133,7 +142,7 @@
                                     </Style>
                                 </StackPanel.Resources>
                                 <Button Content="Запланировать"/>
-                                <Button Content="Отправить сейчас"/>
+                                <Button x:Name="OnSendNowButton"  Content="Отправить сейчас" Click="OnSendNowButtonClick"/>
                             </StackPanel>
                             
                         </StackPanel>
@@ -276,7 +285,42 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Статистика"/>
+            <TabItem Header="Статистика">
+                <Border Margin="10" Padding="10" BorderThickness="1"
+                BorderBrush="Blue" CornerRadius="3">
+                    <Grid>
+                        <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="0,5,0,0"/>
+                                <Style.Triggers>
+                                    <Trigger Property="Grid.Column" Value="0">
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                                        <Setter Property="Margin" Value="0,5,5,0"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Resources>
+
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Отправлено писем:"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Text="0"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Всего отправителей:"/>
+                        <TextBlock Grid.Column="1" Grid.Row="1" Text="0"/>                      
+                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Всего получателей:"/>
+                        <TextBlock Grid.Column="1" Grid.Row="2" Text="0"/>
+                    </Grid>
+                </Border>
+            </TabItem>
         </TabControl>
 
     </DockPanel>
