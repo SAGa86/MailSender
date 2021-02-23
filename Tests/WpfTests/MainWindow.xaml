@@ -75,15 +75,15 @@
                                 <ComboBoxItem>Petrov@mail.ru</ComboBoxItem>
                                 <ComboBoxItem>Sidorov@gmail.com</ComboBoxItem>-->
                             </ComboBox>
-                            <Button x:Name="OnAddRecipientButton" ToolTip="Добавить" Click="OnAddRecipientButtonClick">
+                            <Button x:Name="OnAddSenderButton" ToolTip="Добавить" Click="OnAddSenderButtonClick">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:ImageAwesome Icon="Regular_PlusSquare" Height="12" Margin="0,0,5,0" Foreground="DarkBlue"/>
                                     <TextBlock Text="Добавить" TextAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                            <Button x:Name="OnEditRecipientButton" ToolTip="Редактировать" fa:Awesome.Content="Regular_Edit" Foreground="DarkOrange" />
+                            <Button x:Name="OnEditSenderButton" ToolTip="Редактировать" fa:Awesome.Content="Regular_Edit" Foreground="DarkOrange" Click="OnEditSenderButtonClick" />
 
-                            <Button x:Name="OnDeleteRecipientButton" ToolTip="Удалить" fa:Awesome.Content="Regular_TrashAlt" Foreground="DarkRed"/>
+                            <Button x:Name="OnDeleteSenderButton" ToolTip="Удалить" fa:Awesome.Content="Regular_TrashAlt" Foreground="DarkRed" Click="OnDeleteSenderButtonClick"/>
                             
                         </ToolBar>
                         <ToolBar>

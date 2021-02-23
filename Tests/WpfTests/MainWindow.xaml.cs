@@ -177,10 +177,55 @@ namespace WpfTests
                     MessageBoxImage.Error);
                 }*/
             }
-
-        private void OnAddRecipientButtonClick(object sender, RoutedEventArgs e)
+        private void OnAddSenderButtonClick(object Sender, RoutedEventArgs E)
         {
-
+            if (!SenderEditDialog.Create(
+            out var name,
+            out var address,            
+            out var description
+            ))
+                return;
+            var sender = new Sender
+            {
+                Id = TestData.Senders.DefaultIfEmpty().Max(s => s.Id) + 1,
+                Name = name,
+                Address = address,                
+                Description = description                
+            };
+            TestData.Senders.Add(sender);
+            SendersList.ItemsSource = null;
+            SendersList.ItemsSource = TestData.Senders;
+            SendersList.SelectedItem = sender;
         }
+
+        private void OnEditSenderButtonClick(object Sender, RoutedEventArgs E)
+        {
+            if (!(SendersList.SelectedItem is Sender sender)) return;
+            var name = sender.Name;
+            var address = sender.Address;            
+            var description = sender.Description;
+            
+            if (!SenderEditDialog.ShowDialog("Редактирование отправителя",
+            ref name,
+            ref address,
+            ref description))
+                return;
+            sender.Name = name;
+            sender.Address = address;
+            sender.Description = description;
+            SendersList.ItemsSource = null;
+            SendersList.ItemsSource = TestData.Senders;
+            SendersList.SelectedItem = sender;
+        }
+
+        private void OnDeleteSenderButtonClick(object Sender, RoutedEventArgs E)
+        {
+            if (!(SendersList.SelectedItem is Sender sender)) return;
+            TestData.Senders.Remove(sender);
+            SendersList.ItemsSource = null;
+            SendersList.ItemsSource = TestData.Senders;
+            SendersList.SelectedItem = TestData.Senders.FirstOrDefault();
+        }
+
     }
 }
