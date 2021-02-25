@@ -11,10 +11,11 @@
         xmlns:m="clr-namespace:WpfTests.Models"
         xmlns:vm="clr-namespace:WpfTests.ViewModels"
         Height="450" Width="800"
-        Title="{Binding Title}">
-        <Window.DataContext>
+        Title="{Binding Title}"
+        DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}">
+        <!--<Window.DataContext>
             <vm:MainWindowViewModel />
-        </Window.DataContext>
+        </Window.DataContext>-->
         
         
     <DockPanel>
