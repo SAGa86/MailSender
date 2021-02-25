@@ -9,9 +9,14 @@
         xmlns:data="clr-namespace:WpfTests.Data"
         xmlns:contr="clr-namespace:WpfTests.Controls"
         xmlns:m="clr-namespace:WpfTests.Models"
+        xmlns:vm="clr-namespace:WpfTests.ViewModels"
+        Height="450" Width="800"
+        Title="{Binding Title}">
+        <Window.DataContext>
+            <vm:MainWindowViewModel />
+        </Window.DataContext>
         
         
-        Title="MainWindow" Height="450" Width="800">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
@@ -28,7 +33,7 @@
                 <ResizeGrip />
                 
             </StatusBarItem>
-            <StatusBarItem Content="Готов!" />
+            <StatusBarItem Content="{Binding Status}" />
         </StatusBar>
         <TabControl>
             <TabItem Header="Списки">
