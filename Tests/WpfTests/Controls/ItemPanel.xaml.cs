@@ -20,7 +20,16 @@ namespace WpfTests.Controls
     /// </summary>
     public partial class ItemPanel : UserControl
     {
-        public string Title { get; set; }
+        public static readonly DependencyProperty TytleProperty =
+            DependencyProperty.Register(
+                nameof(Title),
+                typeof(string),
+                typeof(ItemPanel),
+                new PropertyMetadata(default(string)));
+       
+        public string Title { get => (string)GetValue(TytleProperty); set => SetValue(TytleProperty, value); }
+
+        //НАПИСАННОЕ ВЫШЕ - ЕСТЬ СВОЙСТВО ЗАВИСИМОСТИ.
         public ItemPanel()
         {
             InitializeComponent();
