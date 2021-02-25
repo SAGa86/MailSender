@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using WpfTests.Infrastructure;
 using WpfTests.ViewModels;
 
 namespace WpfTests
@@ -28,6 +29,7 @@ namespace WpfTests
         private static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
             services.AddSingleton<MainWindowViewModel>();
+            services.AddSingleton<ServersRepository>();
         }
     }
 }
