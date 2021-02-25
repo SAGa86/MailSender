@@ -25,8 +25,13 @@ namespace WpfTests.Controls
                 nameof(Title),
                 typeof(string),
                 typeof(ItemPanel),
-                new PropertyMetadata(default(string)));
-       
+                new PropertyMetadata(default(string), OnTitleChanged));
+
+        private static void OnTitleChanged(DependencyObject D, DependencyPropertyChangedEventArgs E)
+        {
+
+        }
+
         public string Title { get => (string)GetValue(TytleProperty); set => SetValue(TytleProperty, value); }
 
         //НАПИСАННОЕ ВЫШЕ - ЕСТЬ СВОЙСТВО ЗАВИСИМОСТИ.
