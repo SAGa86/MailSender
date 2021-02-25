@@ -104,8 +104,9 @@
                             <Button ToolTip="Удалить" fa:Awesome.Content="Regular_TrashAlt" Foreground="DarkRed"/>
                         </ToolBar>
                         <ToolBar Band="2">
-                            <contr:ItemPanel Title="{Binding Text, ElementName=Test}" />
-                            <TextBox Name="Test" Text="123"/>
+                            <contr:ItemPanel /> 
+                            <!--Title="{Binding Text, ElementName=Test}" />
+                            <TextBox Name="Test" Text="123"/>-->
                         </ToolBar>
                     </ToolBarTray>                   
                         

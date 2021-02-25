@@ -25,7 +25,7 @@ namespace WpfTests.Controls
                 nameof(Title),
                 typeof(string),
                 typeof(ItemPanel),
-                new PropertyMetadata(default(string), OnTitleChanged));
+                new PropertyMetadata("Название", OnTitleChanged));
 
         private static void OnTitleChanged(DependencyObject D, DependencyPropertyChangedEventArgs E)
         {
