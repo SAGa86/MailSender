@@ -4,10 +4,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
         xmlns:local="clr-namespace:WpfTests"
         xmlns:data="clr-namespace:WpfTests.Data"
+        xmlns:contr="clr-namespace:WpfTests.Controls"
         xmlns:m="clr-namespace:WpfTests.Models"
-        mc:Ignorable="d"
+        
         
         Title="MainWindow" Height="450" Width="800">
     <DockPanel>
@@ -100,8 +102,13 @@
                             <Button ToolTip="Редактировать" fa:Awesome.Content="Regular_Edit" Foreground="DarkOrange" />
 
                             <Button ToolTip="Удалить" fa:Awesome.Content="Regular_TrashAlt" Foreground="DarkRed"/>
-                        </ToolBar>                        
-                    </ToolBarTray>
+                        </ToolBar>
+                        <ToolBar Band="2">
+                            <contr:ItemPanel />
+                        </ToolBar>
+                    </ToolBarTray>                   
+                        
+                    
                     <GroupBox Header="Список получателей" Margin="3">
                         <DataGrid 
                                   Name="RecipientsList"
