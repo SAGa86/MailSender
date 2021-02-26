@@ -41,9 +41,9 @@
                 <DockPanel>
                     <ToolBarTray DockPanel.Dock="Top">
                         <ToolBar Header="Сервера">
-                            <ComboBox Name="ServersList"  MinWidth="120" MaxWidth="200" SelectedIndex="0" Margin="27,0,0,0" ItemsSource="{Binding Servers}"                                  
+                            <ComboBox Name="ServersList"  MinWidth="120" MaxWidth="200" SelectedIndex="0" Margin="27,0,0,0" ItemsSource="{Binding Servers}" DisplayMemberPath="Address"                                  
                                       >                            
-                                <ComboBox.ItemTemplate>
+                                <!--<ComboBox.ItemTemplate>
                                     <DataTemplate DataType ="m:Server" >
                                         <StackPanel Orientation="Horizontal">                                         
                                             
@@ -54,9 +54,11 @@
                                         </StackPanel>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>                     
-                               
+                               -->
                             </ComboBox>
-                            <Button x:Name="OnAddServerButton"  ToolTip="Добавить" Click="OnAddServerButtonClick">
+                            <Button Command="{Binding LoadServersCommand}">
+                                <!--:Name="OnAddServerButton"  ToolTip="Добавить" Click="OnAddServerButtonClick"> -->
+                                
                                 <StackPanel Orientation="Horizontal">
                                     <fa:ImageAwesome Icon="Regular_PlusSquare" Height="12" Margin="0,0,5,0" Foreground="DarkBlue" />
                                     <TextBlock Text="Добавить" TextAlignment="Center"/>
@@ -300,41 +302,9 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Статистика">
-                <Border Margin="10" Padding="10" BorderThickness="1"
-                BorderBrush="Blue" CornerRadius="3">
-                    <Grid>
-                        <Grid.Resources>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Margin" Value="0,5,0,0"/>
-                                <Style.Triggers>
-                                    <Trigger Property="Grid.Column" Value="0">
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                        <Setter Property="HorizontalAlignment" Value="Right"/>
-                                        <Setter Property="Margin" Value="0,5,5,0"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Grid.Resources>
-
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Отправлено писем:"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Text="0"/>
-                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Всего отправителей:"/>
-                        <TextBlock Grid.Column="1" Grid.Row="1" Text="0"/>                      
-                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Всего получателей:"/>
-                        <TextBlock Grid.Column="1" Grid.Row="2" Text="0"/>
-                    </Grid>
-                </Border>
+            <TabItem Header="Статистика" 
+                     xmlns:v="clr-namespace:WpfTests.Views">
+                <v:StatisticView />
             </TabItem>
         </TabControl>
 

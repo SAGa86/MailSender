@@ -1,10 +1,12 @@
-﻿using MailSender.lib.ViewModels.Base;
+﻿using MailSender.lib.Commands;
+using MailSender.lib.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using WpfTests.Infrastructure;
 using WpfTests.Models;
 
@@ -20,6 +22,17 @@ namespace WpfTests.ViewModels
 
         public ObservableCollection<Server> Servers { get; } = new ();
 
+        #region Команды
+        private ICommand _LoadServersCommand;
+
+        public ICommand LoadServersCommand => _LoadServersCommand
+            ?? new LambdaCommand(OnLoadServersCommand, CanLoadServerCommandExecute);
+
+        private bool CanLoadServerCommandExecute(object p) => Servers.Count == 0;
+
+        private void OnLoadServersCommand(object p) { LoadServers(); }
+
+#endregion
         public MainWindowViewModel(ServersRepository Servers)
         { _Servers = Servers; }
 

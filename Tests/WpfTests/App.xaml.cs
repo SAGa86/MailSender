@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using WpfTests.Infrastructure;
+using WpfTests.Infrastructure.Interfaces;
+using WpfTests.Infrastructure.Services;
 using WpfTests.ViewModels;
 
 namespace WpfTests
@@ -30,6 +32,7 @@ namespace WpfTests
         {
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<ServersRepository>();
+            services.AddSingleton<IStatistic, InMemoryStatisticService>();
         }
     }
 }
