@@ -18,6 +18,8 @@ using System.Windows.Shapes;
 using WpfTests.Models;
 using MailSender.lib;
 using WpfTests.Data;
+using MailSender.lib.ViewModels;
+using WpfTests.ViewModels;
 
 namespace WpfTests
 {
@@ -29,6 +31,7 @@ namespace WpfTests
         public MainWindow()
         {
             InitializeComponent();
+            //DataContext = new MainWindowViewModel() 
              
         }
         
