@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfTests.Views"
+             DataContext="{Binding Statistic, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="10">
@@ -31,15 +32,15 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="0" Grid.Row="0" Text="Число отправленных писем" />
-        <TextBlock Grid.Column="1" Grid.Row="0" Text="" />
+        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding MailsSendedCount}" />
         
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Число отправителей в базе" />
-        <TextBlock Grid.Column="1" Grid.Row="1" Text="" />
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding SendersCount}" />
 
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Число получателей в базе" />
-        <TextBlock Grid.Column="1" Grid.Row="2" Text="" />
+        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding RecipientsCount}" />
 
         <TextBlock Grid.Column="0" Grid.Row="3" Text="Время сеанса" />
-        <TextBlock Grid.Column="1" Grid.Row="3" Text="" />
+        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding UpTime}" />
     </Grid>
 </UserControl>

@@ -1,21 +1,15 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MailSender.lib.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
 using WpfTests.Infrastructure;
-using WpfTests.Infrastructure.Interfaces;
 using WpfTests.Infrastructure.Services;
 using WpfTests.ViewModels;
 
 namespace WpfTests
 {
-    
+
     public partial class App
     {
         private static IHost __Hosting;
@@ -33,6 +27,7 @@ namespace WpfTests
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<ServersRepository>();
             services.AddSingleton<IStatistic, InMemoryStatisticService>();
+            services.AddSingleton<StatisticViewModel>();
         }
     }
 }
