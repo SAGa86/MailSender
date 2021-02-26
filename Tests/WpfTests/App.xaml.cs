@@ -28,6 +28,7 @@ namespace WpfTests
             services.AddSingleton<ServersRepository>();
             services.AddSingleton<IStatistic, InMemoryStatisticService>();
             services.AddSingleton<StatisticViewModel>();
+            services.AddSingleton<IMailService, DebugMailService>();
         }
     }
 }

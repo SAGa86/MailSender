@@ -159,7 +159,7 @@
                                     </Style>
                                 </StackPanel.Resources>
                                 <Button Content="Запланировать"/>
-                                <Button x:Name="OnSendNowButton"  Content="Отправить сейчас" Click="OnSendNowButtonClick"/>
+                                <Button Content="Отправить сейчас" Command="{Binding SendEmailCommand}"/> <!--":Name="OnSendNowButton"  Content="Отправить сейчас" Click="OnSendNowButtonClick"/>-->
                             </StackPanel>
                             
                         </StackPanel>

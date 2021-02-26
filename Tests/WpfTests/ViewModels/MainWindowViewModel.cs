@@ -1,4 +1,5 @@
 ﻿using MailSender.lib.Commands;
+using MailSender.lib.Interfaces;
 using MailSender.lib.ViewModels.Base;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace WpfTests.ViewModels
     internal class MainWindowViewModel : ViewModel
     {
         private readonly ServersRepository _Servers;
+        private readonly IMailService _MailService;
         private string _Title = "Рассыльщик";
         public string Title { get => _Title; set => Set(ref _Title, value); }
         private string _Status = "Готов!";
@@ -32,9 +34,21 @@ namespace WpfTests.ViewModels
 
         private void OnLoadServersCommand(object p) { LoadServers(); }
 
-#endregion
-        public MainWindowViewModel(ServersRepository Servers)
-        { _Servers = Servers; }
+        private ICommand _SendEmailCommand;
+
+        public ICommand SendEmailCommand => _SendEmailCommand
+            ?? new LambdaCommand(OnSendEmailCommand, CanSendEmailCommandExecute);
+
+        private bool CanSendEmailCommandExecute(object p) => Servers.Count == 0;
+
+        private void OnSendEmailCommand(object p) { _MailService.SendMail("Иванов", "Петров", "Тема", "Текст"); }
+
+        #endregion
+        public MainWindowViewModel(ServersRepository Servers, IMailService MailService)
+        { 
+            _Servers = Servers;
+            _MailService = MailService;
+        }
 
         private void LoadServers() 
         {

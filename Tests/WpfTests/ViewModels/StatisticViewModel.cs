@@ -28,7 +28,10 @@ namespace WpfTests.ViewModels
             var timer = new Timer(100);
             timer.Elapsed += (_, _) => OnPropertyChanged(nameof(UpTime));
             timer.Start();
+            Statistic.SendedMailsCountChanged += (_, _) => OnPropertyChanged(nameof(MailsSendedCount));
             }
+
+        
 
     }
 }

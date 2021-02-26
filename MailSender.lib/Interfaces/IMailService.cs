@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MailSender.lib.Interfaces
 {
-    interface IMailService
+    public interface IMailService
     {
+        void SendMail(string From, string To, string Mail, string Body);
     }
 }
