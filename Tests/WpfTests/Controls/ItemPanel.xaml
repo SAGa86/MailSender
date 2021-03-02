@@ -39,8 +39,10 @@
         <ComboBox Name="SendersList" SelectedIndex="0"
                                       ItemsSource="{Binding ItemSource, RelativeSource={RelativeSource AncestorType=local:ItemPanel}}"
                   SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=local:ItemPanel}}"
-                  Margin="5,0,5,0" VerticalAlignment="Center">
-                    <ComboBox.ItemTemplate>
+                  Margin="5,0,5,0" VerticalAlignment="Center"
+                  ItemTemplate="{Binding ItemTemplate, RelativeSource={RelativeSource AncestorType=local:ItemPanel}}"
+                  DisplayMemberPath="{Binding DisplayMemberPath, RelativeSource={RelativeSource AncestorType=local:ItemPanel}}">
+            <!--<ComboBox.ItemTemplate>
                         <DataTemplate DataType ="m:Sender" >
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding Name}" />
@@ -48,7 +50,7 @@
                             </StackPanel>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
-                    <!--<ComboBoxItem>Ivanov@ya.ru</ComboBoxItem>
+                    <ComboBoxItem>Ivanov@ya.ru</ComboBoxItem>
                                 <ComboBoxItem>Petrov@mail.ru</ComboBoxItem>
                                 <ComboBoxItem>Sidorov@gmail.com</ComboBoxItem>-->
                 </ComboBox>                

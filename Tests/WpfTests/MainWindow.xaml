@@ -112,7 +112,12 @@
                             <Button ToolTip="Удалить" fa:Awesome.Content="Regular_TrashAlt" Foreground="DarkRed"/>
                         </ToolBar>
                         <ToolBar Band="2">
-                            <contr:ItemPanel /> 
+                            <contr:ItemPanel Title="Сервера" ItemTemplate="{Binding Servers}"/>
+                                             <!--SelectedItem="{Binding SelectedServer }"
+                                             AddNewItemCommand=""
+                                             EditCommand=""
+                                             RemoveItemCommand=""-->
+                                              
                             <!--Title="{Binding Text, ElementName=Test}" />
                             <TextBox Name="Test" Text="123"/>-->
                         </ToolBar>

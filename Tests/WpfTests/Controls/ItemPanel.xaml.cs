@@ -113,6 +113,36 @@ namespace WpfTests.Controls
 
         #endregion
 
+        #region ItemTemplate свойство ItemTemplate - шаблон элемента выпадающего списка
+
+        public static DependencyProperty ItemTemplateProperty =
+            DependencyProperty.Register(
+                nameof(ItemTemplate),
+                typeof(DataTemplate),
+                typeof(ItemPanel),
+                new PropertyMetadata(default(DataTemplate)));
+
+        [Description("$summary$")]
+
+        public DataTemplate ItemTemplate { get => (DataTemplate)GetValue(ItemTemplateProperty); set => SetValue(ItemTemplateProperty, value); }
+
+        #endregion
+
+        #region DisplayMemberPath - имя отображаемого свойства
+
+        public static DependencyProperty DisplayMemberPathProperty =
+            DependencyProperty.Register(
+                nameof(DisplayMemberPath),
+                typeof(string),
+                typeof(ItemPanel),
+                new PropertyMetadata(default(string)));
+
+        [Description("$summary$")]
+
+        public string DisplayMemberPath { get => (string)GetValue(DisplayMemberPathProperty); set => SetValue(DisplayMemberPathProperty, value); }
+
+        #endregion
+
         public ItemPanel()
         {
             InitializeComponent();
