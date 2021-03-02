@@ -22,18 +22,24 @@
                     <Setter Property="BorderThickness" Value="0" />
                 </Style>
             </StackPanel.Resources>
-                <Button ToolTip="Добавить">
+            <Button Command="{Binding AddNewItemCommand, RelativeSource={RelativeSource AncestorType=local:ItemPanel}}" ToolTip="Добавить">
                     <StackPanel Orientation="Horizontal">
                         <fa:ImageAwesome Icon="Regular_PlusSquare" Height="12" Margin="0,0,5,0" Foreground="DarkBlue"/>
                         <TextBlock Text="Добавить" TextAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button ToolTip="Редактировать" fa:Awesome.Content="Regular_Edit" Foreground="DarkOrange" />
+            <Button ToolTip="Редактировать" fa:Awesome.Content="Regular_Edit" Foreground="DarkOrange" 
+                    Command="{Binding EditItemCommand, RelativeSource={RelativeSource AncestorType=local:ItemPanel}}"
+                    CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=local:ItemPanel}}"/>
 
-                <Button ToolTip="Удалить" fa:Awesome.Content="Regular_TrashAlt" Foreground="DarkRed" />
+            <Button ToolTip="Удалить" fa:Awesome.Content="Regular_TrashAlt" Foreground="DarkRed" 
+                    Command="{Binding RemoveItemCommand, RelativeSource={RelativeSource AncestorType=local:ItemPanel}}"
+                    CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=local:ItemPanel}}"/>
         </StackPanel>
         <ComboBox Name="SendersList" SelectedIndex="0"
-                                      ItemsSource="{x:Static data:TestData.Senders}" Margin="5,0,5,0" VerticalAlignment="Center">
+                                      ItemsSource="{Binding ItemSource, RelativeSource={RelativeSource AncestorType=local:ItemPanel}}"
+                  SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=local:ItemPanel}}"
+                  Margin="5,0,5,0" VerticalAlignment="Center">
                     <ComboBox.ItemTemplate>
                         <DataTemplate DataType ="m:Sender" >
                             <StackPanel Orientation="Horizontal">
