@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfTests.Models.Base;
 
 namespace WpfTests.Models
 {
-    public class Sender
+    public class Sender : Entity 
     {
         public int Id { get; set; }
         public string Name { get; set; }
