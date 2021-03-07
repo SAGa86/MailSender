@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfTests.Views"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+             DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
              d:DesignHeight="380" d:DesignWidth="440">
     
     <DockPanel Margin="3">
@@ -15,7 +16,7 @@
             <TextBox />
         </DockPanel>
         <UniformGrid DockPanel.Dock="Bottom" Rows="1" HorizontalAlignment="Center" Margin="3">
-            <Button Content="Загрузка данных" Margin="3,0" Padding="20,3"/>
+            <Button Content="Загрузка данных" Margin="3,0" Padding="20,3" Command="{Binding LoadDataCommand}"/>
             <Button Content="Сохранение данных" Margin="3,0" Padding="20,3"/>
         </UniformGrid>
         <DataGrid                 Margin="5,0" 
@@ -25,7 +26,8 @@
                                   IsReadOnly="True"
                                   GridLinesVisibility="Vertical"
                                   VerticalGridLinesBrush="DarkGray"
-                                  AlternatingRowBackground="Beige">
+                                  AlternatingRowBackground="Beige"
+                                  ItemsSource="{Binding Recipients}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" MinWidth="30" />
                 <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*"/>

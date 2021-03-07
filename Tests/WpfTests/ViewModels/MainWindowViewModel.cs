@@ -1,16 +1,13 @@
 ﻿using MailSender.lib.Commands;
 using MailSender.lib.Interfaces;
 using MailSender.lib.ViewModels.Base;
-using System;
-using System.Collections.Generic;
+
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows.Input;
-using WpfTests.Infrastructure;
+
 using WpfTests.Infrastructure.Services;
-using WpfTests.Infrastructure.Services.InMemory;
+
 using WpfTests.Models;
 using WpfTests.Models.Base;
 
@@ -42,14 +39,14 @@ namespace WpfTests.ViewModels
         public ObservableCollection<Message> Messages { get; } = new();
 
         #region Команды
-        private ICommand _LoadServersCommand;
+        private ICommand _LoadDataCommand;
 
-        public ICommand LoadServersCommand => _LoadServersCommand
-            ?? new LambdaCommand(OnLoadServersCommand, CanLoadServerCommandExecute);
+        public ICommand LoadDataCommand => _LoadDataCommand
+            ?? new LambdaCommand(OnLoadDataCommand, CanLoadDataCommandExecute);
 
-        private bool CanLoadServerCommandExecute(object p) => Servers.Count == 0;
+        private bool CanLoadDataCommandExecute(object p) => Servers.Count == 0;
 
-        private void OnLoadServersCommand(object p) { LoadServers(); }
+        private void OnLoadDataCommand(object p) { LoadData(); }
 
         private ICommand _SendEmailCommand;
 
@@ -82,7 +79,7 @@ namespace WpfTests.ViewModels
                 collection.Add(item);
         }
 
-        private void LoadServers() 
+        private void LoadData() 
         {
             Load(Servers, _Servers);
             Load(Senders, _Senders);

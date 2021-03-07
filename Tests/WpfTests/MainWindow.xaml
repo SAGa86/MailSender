@@ -9,7 +9,7 @@
         xmlns:data="clr-namespace:WpfTests.Data"
         xmlns:contr="clr-namespace:WpfTests.Controls"
         xmlns:m="clr-namespace:WpfTests.Models"
-        xmlns:vm="clr-namespace:WpfTests.ViewModels"
+        xmlns:vm="clr-namespace:WpfTests.ViewModels" xmlns:views="clr-namespace:WpfTests.Views"
         Height="450" Width="800"
         Title="{Binding Title}"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}">
@@ -45,7 +45,7 @@
                                       >                            
                                 
                             </ComboBox>
-                            <Button Command="{Binding LoadServersCommand}">
+                            <Button Command="{Binding LoadDataCommand}">
                                                                 
                                 <StackPanel Orientation="Horizontal">
                                     <fa:ImageAwesome Icon="Regular_PlusSquare" Height="12" Margin="0,0,5,0" Foreground="DarkBlue" />
@@ -60,7 +60,7 @@
                         </ToolBar>
                         <ToolBar Header="Отправители" Band="1" BandIndex="0">
                             <ComboBox Name="SendersList" MinWidth="120" MaxWidth="200" SelectedIndex="0"
-                                      ItemsSource="{x:Static data:TestData.Senders}">
+                                      ItemsSource="{Binding Senders}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate DataType ="m:Sender" >
                                         <StackPanel Orientation="Horizontal">
@@ -113,7 +113,7 @@
                         
                     
                     <GroupBox Header="Список получателей" Margin="3">
-                        <DataGrid 
+                        <!--<DataGrid 
                                   Name="RecipientsList"
                                   AutoGenerateColumns="False" 
                                   ItemsSource="{x:Static data:TestData.Recipients}"
@@ -127,7 +127,10 @@
                                 <DataGridTextColumn Header="Адрес" Binding="{Binding Address}" MinWidth="120" />
                             </DataGrid.Columns>
                             
-                        </DataGrid>
+                        </DataGrid> -->
+                        <Grid>
+                            <views:RecipientsView/>
+                        </Grid>
                     </GroupBox>   
                 </DockPanel>
             </TabItem>
@@ -277,7 +280,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Header="Письма">
-                        <ListBox MinWidth="120" ItemsSource="{x:Static data:TestData.Messages}"
+                        <ListBox MinWidth="120" ItemsSource="{Binding Messages}"
                                  DisplayMemberPath="Body"
                                  Name="MessagesList"/>
                             
