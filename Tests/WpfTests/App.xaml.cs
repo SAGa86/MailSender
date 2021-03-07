@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using WpfTests.Infrastructure;
 using WpfTests.Infrastructure.Services;
+using WpfTests.Infrastructure.Services.InMemory;
 using WpfTests.ViewModels;
 
 namespace WpfTests

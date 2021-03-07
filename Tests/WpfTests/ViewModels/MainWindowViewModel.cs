@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WpfTests.Infrastructure;
+using WpfTests.Infrastructure.Services.InMemory;
 using WpfTests.Models;
 
 namespace WpfTests.ViewModels
