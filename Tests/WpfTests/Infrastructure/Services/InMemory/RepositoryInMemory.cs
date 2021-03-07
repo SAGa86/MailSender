@@ -17,7 +17,7 @@ namespace WpfTests.Infrastructure.Services.InMemory
         {
             _Items = items.ToList();
             _MaxId = _Items.Count > 0 ? _Items.Max(i => i.Id) + 1 : 1;
-                //_Items.DefaultIfEmpty().Max(s => s.Id);
+        
         }
 
         public int Add(T item)

@@ -43,22 +43,10 @@
                         <ToolBar Header="Сервера">
                             <ComboBox Name="ServersList"  MinWidth="120" MaxWidth="200" SelectedIndex="0" Margin="27,0,0,0" ItemsSource="{Binding Servers}" DisplayMemberPath="Address"                                  
                                       >                            
-                                <!--<ComboBox.ItemTemplate>
-                                    <DataTemplate DataType ="m:Server" >
-                                        <StackPanel Orientation="Horizontal">                                         
-                                            
-                                            <TextBlock Text="{Binding Name}" />
-                                            <TextBlock Text="{Binding Address}" Margin="5,0,0,0" Opacity="0.5" FontSize="10" TextAlignment="Center" />
-                                            <TextBlock Text=":" Margin="0,0,0,0" Opacity="0.5" FontSize="10" TextAlignment="Center"  />
-                                            <TextBlock Text="{Binding Port}" Margin="0,0,0,0" Opacity="0.5" FontSize="10" TextAlignment="Center"  />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>                     
-                               -->
+                                
                             </ComboBox>
                             <Button Command="{Binding LoadServersCommand}">
-                                <!--:Name="OnAddServerButton"  ToolTip="Добавить" Click="OnAddServerButtonClick"> -->
-                                
+                                                                
                                 <StackPanel Orientation="Horizontal">
                                     <fa:ImageAwesome Icon="Regular_PlusSquare" Height="12" Margin="0,0,5,0" Foreground="DarkBlue" />
                                     <TextBlock Text="Добавить" TextAlignment="Center"/>

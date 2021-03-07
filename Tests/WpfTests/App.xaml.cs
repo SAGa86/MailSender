@@ -6,6 +6,7 @@ using System;
 using WpfTests.Infrastructure;
 using WpfTests.Infrastructure.Services;
 using WpfTests.Infrastructure.Services.InMemory;
+using WpfTests.Models;
 using WpfTests.ViewModels;
 
 namespace WpfTests
@@ -27,6 +28,9 @@ namespace WpfTests
         {
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<ServersRepository>();
+            services.AddSingleton<SendersRepository>();
+            services.AddSingleton<RecipientsRepository>();
+            services.AddSingleton<MessagesRepository>();
             services.AddSingleton<IStatistic, InMemoryStatisticService>();
             services.AddSingleton<StatisticViewModel>();
             services.AddSingleton<IMailService, DebugMailService>();

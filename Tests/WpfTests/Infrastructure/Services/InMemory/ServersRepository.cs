@@ -10,10 +10,7 @@ using System.Windows.Documents;
 namespace WpfTests.Infrastructure.Services.InMemory
 {
     class ServersRepository : RepositoryInMemory<Server>
-    {
-        //private static List<Server> _Servers;
-
-        //private int _MaxId;
+    {        
 
         public ServersRepository() : base(new List<Server>
              {
