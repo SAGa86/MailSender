@@ -9,14 +9,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WpfTests.Infrastructure;
+using WpfTests.Infrastructure.Services;
 using WpfTests.Infrastructure.Services.InMemory;
 using WpfTests.Models;
+using WpfTests.Models.Base;
 
 namespace WpfTests.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-        private readonly ServersRepository _Servers;
+        private readonly IRepository<Server> _Servers;
+
+        private readonly IRepository<Sender> _Senders;
+
+        private readonly IRepository<Recipient> _Recipients;
+
+        private readonly IRepository<Message> _Messages;
+
         private readonly IMailService _MailService;
         private string _Title = "Рассыльщик";
         public string Title { get => _Title; set => Set(ref _Title, value); }
@@ -52,16 +61,35 @@ namespace WpfTests.ViewModels
         private void OnSendEmailCommand(object p) { _MailService.SendMail("Иванов", "Петров", "Тема", "Текст"); }
 
         #endregion
-        public MainWindowViewModel(ServersRepository Servers, IMailService MailService)
+        public MainWindowViewModel(
+            IRepository<Server> Servers,
+            IRepository<Sender> Senders,
+            IRepository<Recipient> Recipients,
+            IRepository<Message> Messages,
+            IMailService MailService)
         { 
             _Servers = Servers;
+            _Senders = Senders;
+            _Recipients = Recipients;
+            _Messages = Messages;
             _MailService = MailService;
+        }
+
+        void Load<T> (ObservableCollection<T> collection, IRepository<T> rep) where T : Entity
+        {
+            collection.Clear();
+            foreach (var item in rep.GetAll())
+                collection.Add(item);
         }
 
         private void LoadServers() 
         {
-            foreach (var server in _Servers.GetAll())
-                Servers.Add(server);
+            Load(Servers, _Servers);
+            Load(Senders, _Senders);
+            Load(Recipients, _Recipients);
+            Load(Messages, _Messages);
+            //foreach (var server in _Servers.GetAll())
+            //    Servers.Add(server);
         }
     }
 }

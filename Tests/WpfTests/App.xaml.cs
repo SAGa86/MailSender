@@ -27,10 +27,10 @@ namespace WpfTests
         private static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
             services.AddSingleton<MainWindowViewModel>();
-            services.AddSingleton<ServersRepository>();
-            services.AddSingleton<SendersRepository>();
-            services.AddSingleton<RecipientsRepository>();
-            services.AddSingleton<MessagesRepository>();
+            services.AddSingleton<IRepository<Server>, ServersRepository>();            
+            services.AddSingleton<IRepository<Sender>, SendersRepository>();
+            services.AddSingleton<IRepository<Recipient>, RecipientsRepository>();
+            services.AddSingleton<IRepository<Message>, MessagesRepository>();
             services.AddSingleton<IStatistic, InMemoryStatisticService>();
             services.AddSingleton<StatisticViewModel>();
             services.AddSingleton<IMailService, DebugMailService>();
