@@ -41,7 +41,7 @@ namespace WpfTests.Tests.Infrastructure.Services.InMemory
 
             Assert.AreEqual(actual_id, message.Id);
             CollectionAssert.Contains(all, message);
-            //StringAssert.Matches(all.Body, message.Body);
+          
 
         }
     }

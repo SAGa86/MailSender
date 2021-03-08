@@ -3,7 +3,7 @@ using WpfTests.Models;
 
 namespace WpfTests.Infrastructure.Services.InMemory
 {
-    class SendersRepository : RepositoryInMemory<Sender>
+    public class SendersRepository : RepositoryInMemory<Sender>
     {
         
         public SendersRepository() : base(new List<Sender>

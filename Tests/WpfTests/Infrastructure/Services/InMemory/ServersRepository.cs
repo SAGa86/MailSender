@@ -9,7 +9,7 @@ using System.Windows.Documents;
 
 namespace WpfTests.Infrastructure.Services.InMemory
 {
-    class ServersRepository : RepositoryInMemory<Server>
+    public class ServersRepository : RepositoryInMemory<Server>
     {        
 
         public ServersRepository() : base(new List<Server>
