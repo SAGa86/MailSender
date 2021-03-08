@@ -40,6 +40,14 @@ namespace WpfTests.ViewModels
 
         #region Команды
 
+        #region SelectedServer: Выбранный сервер
+
+        private Server _SelectedServer;
+
+        public Server SelectedServer { get => _SelectedServer; set => Set(ref _SelectedServer, value); }
+
+        #endregion
+
         #region SelectedRecipient: Выбранный получатель
 
         private Recipient _SelectedRecipient;
@@ -50,9 +58,17 @@ namespace WpfTests.ViewModels
 
         #region SelectedSender: Выбранный отправитель
 
-        private Recipient _SelectedSender;
+        private Sender _SelectedSender;
 
-        public Recipient SelectedSender { get => _SelectedSender; set => Set(ref _SelectedSender, value); }
+        public Sender SelectedSender { get => _SelectedSender; set => Set(ref _SelectedSender, value); }
+
+        #endregion
+
+        #region SelectedMessage: Выбранное сообщение
+
+        private Message _SelectedMessage; 
+
+        public Message SelectedMessage { get => _SelectedMessage; set => Set(ref _SelectedMessage, value); }
 
         #endregion
 

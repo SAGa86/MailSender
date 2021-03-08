@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfTests.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="280" d:DesignWidth="280">
+             d:DesignHeight="280" d:DesignWidth="280"
+             DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -18,13 +19,13 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="0" Text=" ID:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Grid.Column="1" Grid.Row="0" Text="" Margin="5"/>
+        <TextBox Grid.Column="1" Grid.Row="0" Margin="5" Text="{Binding SelectedRecipient.Id }" />
 
         <TextBlock Grid.Column="0" Grid.Row="1" Text=" Имя:" HorizontalAlignment="Right" VerticalAlignment="Center" />
-        <TextBox Grid.Column="1" Grid.Row="1" Text="" Margin="5"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding SelectedRecipient.Name}" Margin="5"/>
 
         <TextBlock Grid.Column="0" Grid.Row="2" Text=" Адрес" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Grid.Column="1" Grid.Row="2" Text="" Margin="5"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding SelectedRecipient.Address}" Margin="5"/>
         <UniformGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Rows="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5">
             <Button Content="Сохранить"/>
             <Button Content="Создать"/>
