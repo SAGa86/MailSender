@@ -39,6 +39,23 @@ namespace WpfTests.ViewModels
         public ObservableCollection<Message> Messages { get; } = new();
 
         #region Команды
+
+        #region SelectedRecipient: Выбранный получатель
+
+        private Recipient _SelectedRecipient;
+
+        public Recipient SelectedRecipient { get => _SelectedRecipient; set => Set(ref _SelectedRecipient, value); }
+
+        #endregion
+
+        #region SelectedSender: Выбранный отправитель
+
+        private Recipient _SelectedSender;
+
+        public Recipient SelectedSender { get => _SelectedSender; set => Set(ref _SelectedSender, value); }
+
+        #endregion
+
         private ICommand _LoadDataCommand;
 
         public ICommand LoadDataCommand => _LoadDataCommand

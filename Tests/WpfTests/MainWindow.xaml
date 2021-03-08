@@ -129,7 +129,12 @@
                             
                         </DataGrid> -->
                         <Grid>
-                            <views:RecipientsView/>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <views:RecipientsView Grid.Column="0"/>
+                            <views:RecipientEditor Grid.Column="1"/>
                         </Grid>
                     </GroupBox>   
                 </DockPanel>
