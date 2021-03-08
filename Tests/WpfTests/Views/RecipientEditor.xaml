@@ -9,6 +9,27 @@
              d:DesignHeight="280" d:DesignWidth="280"
              DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}">
     <Grid Margin="5">
+        <Grid.Resources>
+            <Style TargetType="TextBox">
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>                        
+                            <ControlTemplate>
+                                <DockPanel>
+                                    <TextBlock Text="!"
+                                   FontWeight="Bold" Foreground="Red"
+                                   VerticalAlignment="Center"
+                                   Margin="3,0,0,0"                                   
+                                   DockPanel.Dock="Right"/>
+                                    <Border Padding="2" BorderBrush="Red" BorderThickness="3" CornerRadius="3">
+                                        <AdornedElementPlaceholder />
+                                    </Border>
+                                </DockPanel>
+                            </ControlTemplate>                        
+                    </Setter.Value>
+                    
+                </Setter>
+            </Style>
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
@@ -29,8 +50,9 @@
                  Margin="5"/>
 
         <TextBlock Grid.Column="0" Grid.Row="2" Text=" Адрес" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Grid.Column="1" Grid.Row="2" Margin="5"
+        <TextBox Grid.Column="1" Grid.Row="2" Margin="5"                 
                  Validation.Error="OnNameValidationError">
+            
             <TextBox.Text>
                 <Binding Path="SelectedRecipient.Address"
                          NotifyOnValidationError="True"
