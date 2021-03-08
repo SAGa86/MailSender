@@ -10,13 +10,9 @@ namespace WpfTests.Tests.Infrastructure.Services.InMemory
     {
 
         [TestMethod]
-        public void GetAll_Servers_Test()
+        public void Remove_Test()
         {
-            var repository = new ServersRepository();
 
-            var all = repository.GetAll();
-
-            Assert.IsTrue(all.Any());
         }
 
     }
