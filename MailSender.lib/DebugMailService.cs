@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MailSender.lib
@@ -36,6 +37,18 @@ namespace MailSender.lib
         public void Send(string SenderAddress, string RecipientAddress, string Subject, string Body)
         {
             Debug.WriteLine("Отправка почты...");
+        }
+
+        public void Send(string SenderAddress, IEnumerable<string> RecipientsAddresses, string Subject, string Body)
+        {
+            foreach (var rec_address in RecipientsAddresses)
+                Send(SenderAddress, rec_address, Subject, Body);
+        }
+
+        public void SendParallel(string SenderAddress, IEnumerable<string> RecipientsAddresses, string Subject, string Body)
+        {
+            foreach (var rec_address in RecipientsAddresses)
+                ThreadPool.QueueUserWorkItem(_ => Send(SenderAddress, rec_address, Subject, Body));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MailSender.lib.Commands;
+using MailSender.lib;
 using MailSender.lib.Interfaces;
 using MailSender.lib.ViewModels.Base;
 
@@ -88,7 +89,12 @@ namespace WpfTests.ViewModels
 
         private bool CanSendEmailCommandExecute(object p) => Servers.Count == 0;
 
-        private void OnSendEmailCommand(object p) { _MailService.SendMail("Иванов", "Петров", "Тема", "Текст"); }
+        private void OnSendEmailCommand(object p) 
+        { 
+            //_MailService.SendMail("Иванов", "Петров", "Тема", "Текст");
+            var sender = _MailService.GetSender("smtp.yandex.ru", 25, true, "login", "password");
+            sender.Send("Иванов", "Петров", "Тема", "Текст");
+        }
 
         #endregion
         public MainWindowViewModel(

@@ -56,5 +56,16 @@ namespace MailSender.lib
             client.Send(message);
             
         }
+
+        public void Send(string SenderAddress, IEnumerable<string> RecipientsAddresses, string Subject, string Body)
+        {
+            foreach (var rec_address in RecipientsAddresses)
+                Send(SenderAddress, rec_address, Subject, Body);
+        }
+
+        public void SendParallel(string SenderAddress, IEnumerable<string> RecipientsAddresses, string Subject, string Body)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
