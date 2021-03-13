@@ -1,4 +1,5 @@
-﻿using MailSender.lib.Interfaces;
+﻿using MailSender.lib;
+using MailSender.lib.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,7 +34,12 @@ namespace WpfTests
             services.AddSingleton<IRepository<Message>, MessagesRepository>();
             services.AddSingleton<IStatistic, InMemoryStatisticService>();
             services.AddSingleton<StatisticViewModel>();
+#if DEBUG
             services.AddSingleton<IMailService, DebugMailService>();
+#else
+            services.AddSingleton<IMailService, SmtpMailService>();
+#endif
+
         }
     }
 }
