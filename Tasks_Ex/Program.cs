@@ -145,7 +145,7 @@ namespace Tasks_Ex
 
         static void matrixMultiplyForOutput ()
         {
-            int x = 10;
+            int x = 100;
             var task1 = Task.Factory.StartNew<int [,]>(() => genMatrix(x, x));
             
             var task2 = Task.Factory.StartNew<int [,]>(() => genMatrix(x, x));
