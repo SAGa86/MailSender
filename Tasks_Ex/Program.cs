@@ -60,7 +60,7 @@ namespace Tasks_Ex
             //            Console.Write(" ");
 
             //    }
-            matrixMultiplyForOutput();
+            matrixMultiplyForOutput().Wait();
 
         }
 
@@ -143,28 +143,27 @@ namespace Tasks_Ex
                 }
         }
 
-        static void matrixMultiplyForOutput ()
+        static async Task matrixMultiplyForOutput ()
         {
             int x = 100;
-            var task1 = Task.Factory.StartNew<int [,]>(() => genMatrix(x, x));
+            var task1 = Task.Run(() => genMatrix(x, x));
             
-            var task2 = Task.Factory.StartNew<int [,]>(() => genMatrix(x, x));
-            
-            int[,] arrBuf1 = task1.Result;
+            var task2 = Task.Run(() => genMatrix(x, x));
+
+            var arrBuf1 = await task1;
             Console.WriteLine("Матрица А:");
             resToStr(ref arrBuf1);
             
             
-            int[,] arrBuf2 = task2.Result;
+            var arrBuf2 = await task2;
             Console.WriteLine("Матрица B:");
             resToStr(ref arrBuf2);
 
             Console.WriteLine();
-            var task3 = Task.Factory.StartNew<int[,]>(() => matrixMultiplyBase(ref arrBuf1, ref arrBuf2));
-            Task.WaitAll();
-            int[,] exitArr = task3.Result;
+            var task3 = Task.Run(() => matrixMultiplyBase(ref arrBuf1, ref arrBuf2));
+            var exitArr = await task3;
             Console.WriteLine("Матрица C, результат перемножения матриц А и В:");
-            resToStr(ref exitArr);
+            resToStr(ref exitArr);                        
         }
 
         static int [,] matrixMultiplyBase(ref int[,] matrixA, ref int[,] matrixB)
