@@ -45,10 +45,28 @@ namespace MailSender.lib
                 Send(SenderAddress, rec_address, Subject, Body);
         }
 
+        public Task SendAsync(string SenderAddress, string RecipientAddress, string Subject, string Body, CancellationToken Cancel = default)
+        {
+            Debug.WriteLine("Отправка почты асинхронно...");
+            return Task.CompletedTask;
+        }
+
+        public Task SendAsync(string SenderAddress, IEnumerable<string> RecipientsAddresses, string Subject, string Body, CancellationToken Cancel = default)
+        {
+            Debug.WriteLine("Отправка почты асинхронно...");
+            return Task.CompletedTask;
+        }
+
         public void SendParallel(string SenderAddress, IEnumerable<string> RecipientsAddresses, string Subject, string Body)
         {
             foreach (var rec_address in RecipientsAddresses)
                 ThreadPool.QueueUserWorkItem(_ => Send(SenderAddress, rec_address, Subject, Body));
+        }
+
+        public Task SendParallelAsync(string SenderAddress, IEnumerable<string> RecipientsAddresses, string Subject, string Body, CancellationToken Cancel = default)
+        {
+            Debug.WriteLine("Отправка почты асинхронно...");
+            return Task.CompletedTask;
         }
     }
 }
