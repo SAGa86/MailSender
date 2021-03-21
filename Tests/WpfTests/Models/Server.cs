@@ -1,8 +1,10 @@
-﻿namespace WpfTests.Models
+﻿using WpfTests.Models.Base;
+
+namespace WpfTests.Models
 {
-    public class Server
+    public class Server : Entity 
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public int Port { get; set; } = 25;

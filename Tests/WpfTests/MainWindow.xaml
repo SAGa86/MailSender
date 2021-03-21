@@ -4,16 +4,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
         xmlns:local="clr-namespace:WpfTests"
         xmlns:data="clr-namespace:WpfTests.Data"
+        xmlns:contr="clr-namespace:WpfTests.Controls"
         xmlns:m="clr-namespace:WpfTests.Models"
-        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:WpfTests.ViewModels" xmlns:views="clr-namespace:WpfTests.Views"
+        Height="450" Width="800"
+        Title="{Binding Title}"
+        DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}">
+        <!--<Window.DataContext>
+            <vm:MainWindowViewModel />
+        </Window.DataContext>-->
         
-        Title="MainWindow" Height="450" Width="800">
+        
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
-                <MenuItem Header="Выход" Click="Exit_Click" />
+                <MenuItem Header="Выход" Command="{StaticResource CloseAppCommand}" />
             </MenuItem>
             <MenuItem Header="Справка">
                 <MenuItem Header="Помощь" />
@@ -26,29 +34,19 @@
                 <ResizeGrip />
                 
             </StatusBarItem>
-            <StatusBarItem Content="Готов!" />
+            <StatusBarItem Content="{Binding Status}" />
         </StatusBar>
         <TabControl>
             <TabItem Header="Списки">
                 <DockPanel>
                     <ToolBarTray DockPanel.Dock="Top">
                         <ToolBar Header="Сервера">
-                            <ComboBox Name="ServersList"  MinWidth="120" MaxWidth="200" SelectedIndex="0" Margin="27,0,0,0" 
-                                      ItemsSource="{x:Static data:TestData.Servers}">                            
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate DataType ="m:Server" >
-                                        <StackPanel Orientation="Horizontal">                                         
-                                            
-                                            <TextBlock Text="{Binding Name}" />
-                                            <TextBlock Text="{Binding Address}" Margin="5,0,0,0" Opacity="0.5" FontSize="10" TextAlignment="Center" />
-                                            <TextBlock Text=":" Margin="0,0,0,0" Opacity="0.5" FontSize="10" TextAlignment="Center"  />
-                                            <TextBlock Text="{Binding Port}" Margin="0,0,0,0" Opacity="0.5" FontSize="10" TextAlignment="Center"  />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>                     
-                               
+                            <ComboBox Name="ServersList"  MinWidth="120" MaxWidth="200" SelectedIndex="0" Margin="27,0,0,0" ItemsSource="{Binding Servers}" DisplayMemberPath="Address"                                  
+                                      >                            
+                                
                             </ComboBox>
-                            <Button x:Name="OnAddServerButton"  ToolTip="Добавить" Click="OnAddServerButtonClick">
+                            <Button Command="{Binding LoadDataCommand}">
+                                                                
                                 <StackPanel Orientation="Horizontal">
                                     <fa:ImageAwesome Icon="Regular_PlusSquare" Height="12" Margin="0,0,5,0" Foreground="DarkBlue" />
                                     <TextBlock Text="Добавить" TextAlignment="Center"/>
@@ -62,7 +60,7 @@
                         </ToolBar>
                         <ToolBar Header="Отправители" Band="1" BandIndex="0">
                             <ComboBox Name="SendersList" MinWidth="120" MaxWidth="200" SelectedIndex="0"
-                                      ItemsSource="{x:Static data:TestData.Senders}">
+                                      ItemsSource="{Binding Senders}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate DataType ="m:Sender" >
                                         <StackPanel Orientation="Horizontal">
@@ -100,10 +98,22 @@
                             <Button ToolTip="Редактировать" fa:Awesome.Content="Regular_Edit" Foreground="DarkOrange" />
 
                             <Button ToolTip="Удалить" fa:Awesome.Content="Regular_TrashAlt" Foreground="DarkRed"/>
-                        </ToolBar>                        
-                    </ToolBarTray>
+                        </ToolBar>
+                        <ToolBar Band="2">
+                            <contr:ItemPanel Title="Сервера" ItemTemplate="{Binding Servers}"/>
+                                             <!--SelectedItem="{Binding SelectedServer }"
+                                             AddNewItemCommand=""
+                                             EditCommand=""
+                                             RemoveItemCommand=""-->
+                                              
+                            <!--Title="{Binding Text, ElementName=Test}" />
+                            <TextBox Name="Test" Text="123"/>-->
+                        </ToolBar>
+                    </ToolBarTray>                   
+                        
+                    
                     <GroupBox Header="Список получателей" Margin="3">
-                        <DataGrid 
+                        <!--<DataGrid 
                                   Name="RecipientsList"
                                   AutoGenerateColumns="False" 
                                   ItemsSource="{x:Static data:TestData.Recipients}"
@@ -117,7 +127,15 @@
                                 <DataGridTextColumn Header="Адрес" Binding="{Binding Address}" MinWidth="120" />
                             </DataGrid.Columns>
                             
-                        </DataGrid>
+                        </DataGrid> -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <views:RecipientsView Grid.Column="0"/>
+                            <views:RecipientEditor Grid.Column="1"/>
+                        </Grid>
                     </GroupBox>   
                 </DockPanel>
             </TabItem>
@@ -142,7 +160,7 @@
                                     </Style>
                                 </StackPanel.Resources>
                                 <Button Content="Запланировать"/>
-                                <Button x:Name="OnSendNowButton"  Content="Отправить сейчас" Click="OnSendNowButtonClick"/>
+                                <Button Content="Отправить сейчас" Command="{Binding SendEmailCommand}"/> <!--":Name="OnSendNowButton"  Content="Отправить сейчас" Click="OnSendNowButtonClick"/>-->
                             </StackPanel>
                             
                         </StackPanel>
@@ -267,7 +285,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Header="Письма">
-                        <ListBox MinWidth="120" ItemsSource="{x:Static data:TestData.Messages}"
+                        <ListBox MinWidth="120" ItemsSource="{Binding Messages}"
                                  DisplayMemberPath="Body"
                                  Name="MessagesList"/>
                             
@@ -285,41 +303,9 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Статистика">
-                <Border Margin="10" Padding="10" BorderThickness="1"
-                BorderBrush="Blue" CornerRadius="3">
-                    <Grid>
-                        <Grid.Resources>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Margin" Value="0,5,0,0"/>
-                                <Style.Triggers>
-                                    <Trigger Property="Grid.Column" Value="0">
-                                        <Setter Property="FontWeight" Value="Bold"/>
-                                        <Setter Property="HorizontalAlignment" Value="Right"/>
-                                        <Setter Property="Margin" Value="0,5,5,0"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Grid.Resources>
-
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Отправлено писем:"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Text="0"/>
-                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Всего отправителей:"/>
-                        <TextBlock Grid.Column="1" Grid.Row="1" Text="0"/>                      
-                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Всего получателей:"/>
-                        <TextBlock Grid.Column="1" Grid.Row="2" Text="0"/>
-                    </Grid>
-                </Border>
+            <TabItem Header="Статистика" 
+                     xmlns:v="clr-namespace:WpfTests.Views">
+                <v:StatisticView />
             </TabItem>
         </TabControl>
 
