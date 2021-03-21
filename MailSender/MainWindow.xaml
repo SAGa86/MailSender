@@ -6,7 +6,11 @@
         xmlns:local="clr-namespace:MailSender"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Открыть" Click="OpenFIleMenu_Click" />
+            </MenuItem>
+        </Menu>
+    </DockPanel>
 </Window>

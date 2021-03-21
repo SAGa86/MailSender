@@ -18,6 +18,8 @@ using System.Windows.Shapes;
 using WpfTests.Models;
 using MailSender.lib;
 using WpfTests.Data;
+using MailSender.lib.ViewModels;
+using WpfTests.ViewModels;
 
 namespace WpfTests
 {
@@ -29,6 +31,7 @@ namespace WpfTests
         public MainWindow()
         {
             InitializeComponent();
+            //DataContext = new MainWindowViewModel() 
              
         }
         
@@ -157,40 +160,41 @@ namespace WpfTests
 
         private void OnSendNowButtonClick(object sender, RoutedEventArgs e)
         {
-            if (!(SendersList.SelectedItem is Sender Sender)) return;
-            if (!(RecipientsList.SelectedItem is Recipient Recipient)) return;
-            if (!(ServersList.SelectedItem is Server Server)) return;
-            if (!(MessagesList.SelectedItem is Message Message)) return;
-            // Если одни из параметров невозможно получить, то выходим
-            // Создаём объект-рассыльщик и заполняем параметры сервера
-            var mail_sender = new SmtpSender(Server.Address, Server.Port, Server.UseSSL, Server.Login, Server.Password);
-            // При отправке почты может возникнуть проблема. Ставим перехват исключения.
-            try
-            {
-                // Запускаем таймер
-                var timer = Stopwatch.StartNew();
-                // И запускаем процесс отправки почты
-                mail_sender.Send(
-                Sender.Address, Recipient.Address,
-                Message.Title, Message.Body);
-                timer.Stop(); // По завершении останавливаем таймер
-                              // Если почта успешно отправлена, то отображаем диалоговое окно
-                MessageBox.Show(
-                $"Почта успешно отправлена за {timer.Elapsed.TotalSeconds:0.##}c",
-                "Отправка почты",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            //if (!(SendersList.SelectedItem is Sender Sender)) return;
+            //if (!(RecipientsList.SelectedItem is Recipient Recipient)) return;
+            //if (!(ServersList.SelectedItem is Server Server)) return;
+            //if (!(MessagesList.SelectedItem is Message Message)) return;
+            //// Если одни из параметров невозможно получить, то выходим
+            //// Создаём объект-рассыльщик и заполняем параметры сервера
+            //var mail_sender = new SmtpSender(Server.Address, Server.Port, Server.UseSSL, Server.Login, Server.Password);
+            //// При отправке почты может возникнуть проблема. Ставим перехват исключения.
+            //try
+            //{
+            //    // Запускаем таймер
+            //    var timer = Stopwatch.StartNew();
+            //    // И запускаем процесс отправки почты
+            //    mail_sender.Send(
+            //    Sender.Address, Recipient.Address,
+            //    Message.Title, Message.Body);
+            //    timer.Stop(); // По завершении останавливаем таймер
+            //                  // Если почта успешно отправлена, то отображаем диалоговое окно
+            //    MessageBox.Show(
+            //    $"Почта успешно отправлена за {timer.Elapsed.TotalSeconds:0.##}c",
+            //    "Отправка почты",
+            //    MessageBoxButton.OK,
+            //    MessageBoxImage.Information);
             }
             // Если случилась ошибка, то перехватываем исключение
-            catch (SmtpException) // Перехватывает строго нужное нам исключение!
-            {
-                MessageBox.Show(
-                "Ошибка при отправке почты",
-                "Отправка почты",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
-            }
+            //catch (SmtpException) // Перехватывает строго нужное нам исключение!
+            //{
+            //    MessageBox.Show(
+            //    "Ошибка при отправке почты",
+            //    "Отправка почты",
+            //    MessageBoxButton.OK,
+            //    MessageBoxImage.Error);
+            //
+        //}
 
-        }
+        //}
     }
 }
