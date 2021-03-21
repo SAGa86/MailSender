@@ -10,7 +10,7 @@ namespace Threading_Ex
     {
         //private static object lockObject = new object();
 
-        static long HalfFact(long l, long r)
+        static async Task<long> HalfFact(long l, long r)
         {
             if (l > r)
                 return 1;
@@ -19,10 +19,12 @@ namespace Threading_Ex
             if (r - l == 1)
                 return (long)l * r;
             long m = (l + r) / 2;
-            var tskFac1 = Task.Factory.StartNew<long>(() => HalfFact(l, m));
-            var tskFac2 = Task.Factory.StartNew<long>(() => HalfFact(m + 1, r));
-            Task.WaitAll(tskFac1, tskFac2);
-            return tskFac1.Result*tskFac2.Result;
+            //var tskFac1 = Task.Factory.StartNew<long>(() => HalfFact(l, m));
+            //var tskFac2 = Task.Factory.StartNew<long>(() => HalfFact(m + 1, r));
+            var tskFac1 = Task.Run(() => HalfFact(l, m));
+            var tskFac2 = Task.Run(() => HalfFact(m + 1, r));
+            //Task.WaitAll(tskFac1, tskFac2);
+            return await tskFac1 * await tskFac2;
         }
 
         static long FactoReal(long n)
@@ -33,7 +35,7 @@ namespace Threading_Ex
                 return 1;
             if (n == 1 || n == 2)
                 return n;
-            return HalfFact(2, n);
+            return HalfFact(2, n).Result;
         }
 
         static long Sum(long sum, long firstElement)
@@ -46,15 +48,15 @@ namespace Threading_Ex
             return sumReturn;
         }
 
-        static long SumToThread (long number)
+        static async Task<long> SumToThread (long number)
         {
             long middle = number / 2;
             if (middle > 1)
             {
-                var tskSum1 = Task.Factory.StartNew<long>(() => Sum(middle, 0));
-                var tskSum2 = Task.Factory.StartNew<long>(() => Sum(number, middle + 1));
-                Task.WaitAll(tskSum1, tskSum2);
-                return tskSum1.Result + tskSum2.Result;
+                var tskSum1 = Task.Run(() => Sum(middle, 0));
+                var tskSum2 = Task.Run(() => Sum(number, middle + 1));
+                //Task.WaitAll(tskSum1, tskSum2);
+                return await tskSum1 + await tskSum2;
             }
             else
                 return Sum(number, 0); 
@@ -66,7 +68,7 @@ namespace Threading_Ex
             if (long.TryParse(Console.ReadLine(), out N) && N > 0)
             {
                 Console.WriteLine($"Факториал {N} равен {FactoReal(N)}");
-                Console.WriteLine($"Сумма {N} чисел равна {SumToThread(N)}");
+                Console.WriteLine($"Сумма {N} чисел равна {SumToThread(N).Result}");
             }
             else
                 Console.WriteLine("Вы ввели не число!");
