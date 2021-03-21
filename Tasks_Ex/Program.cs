@@ -7,7 +7,7 @@ namespace Tasks_Ex
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             //int x = 10;
             //Task task = new Task(TaskMethod);
@@ -60,7 +60,7 @@ namespace Tasks_Ex
             //            Console.Write(" ");
 
             //    }
-            matrixMultiplyForOutput().Wait();
+            await matrixMultiplyForOutput();
 
         }
 
