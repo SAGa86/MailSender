@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +25,23 @@ namespace MailSender
         public MainWindow()
         {
             InitializeComponent();
+        }
+                
+        private void OpenFIleMenu_Click(object sender, RoutedEventArgs e)
+        {
+            var open_dialog = new OpenFileDialog
+            {
+                Filter = "Excel (*.xls)|*.xls|Все файлы (*.*)|*.*",
+                InitialDirectory = Environment.CurrentDirectory,
+                Title = "Выбор файла для чтения"
+            };
+
+            if (open_dialog.ShowDialog() != true) return;
+
+            var file_name = open_dialog.FileName;
+
+            if (!File.Exists(file_name)) return;
+
         }
     }
 }
