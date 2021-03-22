@@ -9,5 +9,6 @@ namespace WpfTests.Data
 {
     public class MailSenderDB : DbContext
     {
+        //
     }
 }
